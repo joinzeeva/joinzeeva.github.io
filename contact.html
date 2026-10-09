@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Zeeva aur NOCTIVEX se sampark, aur Shikayat Adhikari ki jankari.">
+<meta name="theme-color" content="#080c16">
+<meta property="og:title" content="Contact">
+<meta property="og:description" content="Zeeva aur NOCTIVEX se sampark, aur Shikayat Adhikari ki jankari.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+<title>Contact</title>
+</head>
+<body>
+<header class="shell-head">
+  <div class="shell-head-in">
+    <a class="mark" href="index.html">Zee<span>va</span></a>
+    <nav class="mainnav">
+      <a href="rules.html">Rules</a>
+      <a href="contact.html" class="on">Contact</a>
+    </nav>
+  </div>
+</header>
+<main class="shell-main">
+<div class="doc">
+  <p class="kicker">Baat karni hai</p>
+  <h1 class="doc-title">Contact</h1>
+  <p class="doc-intro">Zeeva NOCTIVEX ka product hai. Neeche jo email hai wahi sabse tez raasta hai &mdash; har mail padha jata hai.</p>
+
+  <div class="card card-accent" id="grievance">
+    <p class="card-label">Shikayat Adhikari &middot; Grievance Officer</p>
+    <dl class="pairs">
+      <div><dt>Naam</dt><dd>Pooshan Mishra</dd></div>
+      <div><dt>Pad</dt><dd>Grievance Officer, NOCTIVEX</dd></div>
+      <div><dt>Email</dt><dd><span class="mono copyable" data-copy>fixmyux69@gmail.com</span></dd></div>
+      <div><dt>Pata</dt><dd>631, Maharshi Dayanand Nagar<br>Civil Lines, P.W.D.<br>Sultanpur, Uttar Pradesh, Bharat</dd></div>
+    </dl>
+    <p class="card-note">Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021 ke
+      antargat. Har shikayat ka <b>24 ghante</b> me acknowledgement, aur <b>15 din</b> me nipatara.</p>
+  </div>
+
+  <div class="card" style="margin-top:12px;">
+    <p class="card-label">Baaki har baat</p>
+    <p class="card-text">Sawal, sujhav, kuch toota hua mila, press, ya NOCTIVEX se baat karni ho &mdash; abhi sab ek hi
+      address par aata hai, aur har mail padha jata hai.</p>
+    <p><span class="mono copyable" data-copy>fixmyux69@gmail.com</span></p>
+  </div>
+
+  <section class="doc-sec">
+    <span class="doc-num">01</span>
+    <h2>Kisi post ki shikayat karni hai</h2>
+    <p>App ke andar har post par Report ka option hai, wahi sabse tez hai. Agar app me nahi pahunch pa rahe ho to
+      Shikayat Adhikari ko mail karo aur post ka ID aur link bhejo.</p>
+  </section>
+
+  <section class="doc-sec">
+    <span class="doc-num">02</span>
+    <h2>Kanooni ya sarkari aadesh</h2>
+    <p>Adalat ya kisi sarkari agency ka aadesh seedhe Shikayat Adhikari ke email par bhejein. Vaidh aadesh par hum
+      <b>36 ghante</b> ke andar kaarravai karte hain, aur har aadesh ka record rakha jata hai.</p>
+  </section>
+
+  <section class="doc-sec">
+    <span class="doc-num">03</span>
+    <h2>Kampani</h2>
+    <p>NOCTIVEX<br>631, Maharshi Dayanand Nagar, Civil Lines, P.W.D.<br>Sultanpur, Uttar Pradesh, Bharat</p>
+    <p>Zeeva NOCTIVEX ka ek product hai.</p>
+  </section>
+</div>
+</main>
+<footer class="shell-foot">
+  <div class="foot-in">
+    <div class="foot-brand">
+      <div class="mark mark-sm">Zee<span>va</span></div>
+      <p>Apne shehar ki awaaz, bina naam ke.<br>NOCTIVEX · Sultanpur, Uttar Pradesh</p>
+    </div>
+    <nav class="foot-nav">
+      <span class="foot-label">Site</span>
+      <a href="index.html">Waitlist</a>
+      <a href="rules.html">Community Rules</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <nav class="foot-nav">
+      <span class="foot-label">Kanooni</span>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="contact.html#grievance">Shikayat Adhikari</a>
+    </nav>
+  </div>
+  <p class="foot-base">© 2026 NOCTIVEX. Zeeva abhi beta me hai aur sabke liye khula nahi hai.</p>
+</footer>
+<script>
+(function () {
+  "use strict";
+  document.querySelectorAll("[data-copy]").forEach(function (el) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "copy-btn";
+    btn.textContent = "Copy";
+    el.insertAdjacentElement("afterend", btn);
+    btn.addEventListener("click", function () {
+      var reset = function (t) { btn.textContent = t; setTimeout(function () { btn.textContent = "Copy"; }, 2000); };
+      var select = function () {
+        var r = document.createRange();
+        r.selectNodeContents(el);
+        var s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+        reset("Select karke copy karo");
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(el.textContent.trim()).then(function () { reset("Copy ho gaya"); }, select);
+      } else { select(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
