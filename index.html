@@ -214,8 +214,39 @@ var SHOW_COUNT_AT = 50;  /* itne log hone par hi ginti dikhegi */
     }
   }
 
+  /* Is browser ki ek pehchaan — sirf isliye ki ek hi banda baar-baar aaye to do na gine jayein.
+     Ye koi naam ya email nahi, bas ek bebuniyad code hai jo isi browser me padа rehta hai. */
+  /* Kahan se aaya — har jagah ka link thoda alag hota hai (?s=story, ?s=reel, ?s=bio...), aur wahi
+     yahan padha jata hai. Agar link pe kuch nahi laga to jis site se aaya uska naam le liya jata hai;
+     Instagram apne andar wale browser se wo bhi nahi bhejta, tab "-" rehta hai. */
+  function visitSrc() {
+    try {
+      var q = new URLSearchParams(location.search).get("s");
+      if (q) return q.slice(0, 20);
+    } catch (e) {}
+    try {
+      if (document.referrer) {
+        var h = new URL(document.referrer).hostname.replace(/^www\./, "");
+        if (h && h !== location.hostname) return h.slice(0, 20);
+      }
+    } catch (e) {}
+    return "-";
+  }
+
+  function visitorId() {
+    try {
+      var v = localStorage.getItem("zeeva-vid");
+      if (!v) {
+        v = Math.random().toString(36).slice(2, 10) + Math.random().toString(36).slice(2, 6);
+        localStorage.setItem("zeeva-vid", v);
+      }
+      return v;
+    } catch (e) { return "anon"; }   /* private window — phir bhi visit gina jayega */
+  }
+
   if (FORM_URL) {
-    fetch(FORM_URL)
+    fetch(FORM_URL + (FORM_URL.indexOf("?") > -1 ? "&" : "?") + "v=" + encodeURIComponent(visitorId())
+          + "&s=" + encodeURIComponent(visitSrc()))
       .then(function (r) { return r.json(); })
       .then(paint)
       .catch(function () { /* ginti nahi mili — page waise hi theek hai */ });
