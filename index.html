@@ -261,18 +261,25 @@ var SHOW_COUNT_AT = 50;  /* itne log hone par hi ginti dikhegi */
     return "";
   }
 
-  function send(email) {
-    /* no-cors: Apps Script ka jawab padha nahi ja sakta, par bhej diya jata hai. */
+  function send(email, src) {
+    /* no-cors: Apps Script ka jawab padha nahi ja sakta, par bhej diya jata hai.
+       s = kahan se aaya — wahi jo visit ke saath bheja jata hai, taki har email ke
+       saamne uska channel likha ja sake (story, reel, r-himanshu, facebook...). */
     return fetch(FORM_URL, {
       method: "POST",
       mode: "no-cors",
-      body: new URLSearchParams({ email: email, at: new Date().toISOString() })
+      body: new URLSearchParams({ email: email, at: new Date().toISOString(), s: src || "-" })
     });
   }
 
+  /* Ruka hua email aise rakha jata hai: "source|email". Purane page ne sirf email
+     rakha hoga — usme '|' nahi hoga, to source "-" maan liya jata hai. */
   var waiting = pending();
   if (FORM_URL && waiting) {
-    send(waiting).then(function () { pending(null); }).catch(function () { /* agli baar phir koshish */ });
+    var cut = waiting.indexOf("|");
+    var wSrc = cut > -1 ? waiting.slice(0, cut) : "-";
+    var wMail = cut > -1 ? waiting.slice(cut + 1) : waiting;
+    send(wMail, wSrc).then(function () { pending(null); }).catch(function () { /* agli baar phir koshish */ });
   }
 
   /* ── form ─────────────────────────────────────────────────────── */
@@ -305,13 +312,14 @@ var SHOW_COUNT_AT = 50;  /* itne log hone par hi ginti dikhegi */
     }
     btn.disabled = true;
     btn.textContent = "Bhej rahe hain...";
-    send(email).then(function () {
+    var src = visitSrc();
+    send(email, src).then(function () {
       pending(null);
       formView.hidden = true;
       doneView.hidden = false;
     }).catch(function () {
       /* Net nahi hai: email browser me rakh lete hain aur agli baar khud bhej denge. */
-      pending(email);
+      pending(src + "|" + email);
       btn.disabled = false;
       btn.textContent = "Mujhe bhi line me lagao";
       err.textContent = "Abhi bhej nahi paye. Tumhara email is phone me rakh liya hai — ye page dobara khologe to apne aap chala jayega.";
